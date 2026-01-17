@@ -71,6 +71,14 @@ npm run build
 
 The output will be in the `dist/` folder.
 
+### 🧪 Running Tests
+
+To run the unit test suite and check code coverage:
+
+```bash
+npx vitest run --coverage
+```
+
 ## 📝 License
 
 MIT
