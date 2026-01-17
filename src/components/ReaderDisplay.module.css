@@ -7,11 +7,12 @@
     /* Specific height for the reading area */
     position: relative;
     font-family: var(--font-mono);
-    /* Monospace helps alignment, but sans-serif can work with flex alignment */
+    /* Font size is now controlled via inline style in JS, default fallback: */
     font-size: 5rem;
-    /* Large text */
     font-weight: 500;
     user-select: none;
+    transition: font-size 0.1s ease-out;
+    /* Smooth transition between words */
 }
 
 .wordContainer {

@@ -4,8 +4,11 @@
     align-items: center;
     gap: 1rem;
     padding: 1rem;
-    background: rgba(18, 18, 18, 0.8);
+    background: rgba(18, 18, 18, 0.95);
+    /* Increased opacity for better visibility */
     backdrop-filter: blur(10px);
+    z-index: 50;
+    /* Explicit Z-Index, lower than Settings (1000) */
     border-radius: 1rem;
     border: 1px solid var(--color-border);
     width: 90%;

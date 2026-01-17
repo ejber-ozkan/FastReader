@@ -272,9 +272,16 @@ function App() {
         color: 'var(--color-text-dim)',
         fontSize: '0.9rem'
       }}>
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <span style={{ fontWeight: 'bold', color: 'var(--color-text)' }}>{fileName}</span>
-          {isLoading && <span>Loading...</span>}
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', overflow: 'hidden' }}>
+          <span style={{
+            fontWeight: 'bold',
+            color: 'var(--color-text)',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            maxWidth: '200px' // Limit width on mobile
+          }}>{fileName}</span>
+          {isLoading && <span style={{ flexShrink: 0 }}>Loading...</span>}
         </div>
 
         <div style={{ display: 'flex', gap: '1rem' }}>

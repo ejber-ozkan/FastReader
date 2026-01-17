@@ -1,9 +1,13 @@
 .container {
-    padding: 1.5rem;
-    width: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
     max-width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
     background: #000;
-    /* As per screenshot */
     border-radius: 1rem;
     border: 1px solid #333;
     display: flex;
@@ -11,7 +15,13 @@
     gap: 1.5rem;
     color: #fff;
     font-family: sans-serif;
+    padding: 1.5rem;
+    z-index: 1000;
+    /* Ensure it sits above everything */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
 }
+
+/* Add a backdrop if possible, but basic high z-index works for now */
 
 .header h2 {
     margin: 0;
