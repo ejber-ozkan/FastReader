@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play, Pause, RotateCcw, RotateCw, BookOpen, Settings, BarChart2, Palette } from 'lucide-react';
+import { Play, Pause, RotateCcw, RotateCw, BookOpen, Settings, BarChart2, Palette, Upload } from 'lucide-react';
 import styles from './Controls.module.css';
 
 interface ControlsProps {
@@ -9,6 +9,7 @@ interface ControlsProps {
     onWpmChange: (wpm: number) => void;
     progress: number;
     onSeek: (percent: number) => void;
+    onOpenFileClick?: () => void;
     onHistoryClick?: () => void;
     onSettingsClick?: () => void;
     onStatsClick?: () => void;
@@ -24,6 +25,7 @@ export const Controls: React.FC<ControlsProps> = ({
     onWpmChange,
     progress,
     onSeek,
+    onOpenFileClick,
     onHistoryClick,
     onSettingsClick,
     onStatsClick,
@@ -82,6 +84,10 @@ export const Controls: React.FC<ControlsProps> = ({
 
             {/* Function Buttons Row */}
             <div className={styles.functionRow}>
+                <button className={styles.functionBtn} title="Open File" onClick={onOpenFileClick}>
+                    <Upload size={18} />
+                    <span>Open</span>
+                </button>
                 <button className={styles.functionBtn} title="History" onClick={onHistoryClick}>
                     <BookOpen size={18} />
                     <span>History</span>
@@ -99,7 +105,6 @@ export const Controls: React.FC<ControlsProps> = ({
                     <span>Theme</span>
                 </button>
             </div>
-
             {/* WPM Control */}
             <div className={styles.wpmControl}>
                 <span className={`${styles.label} ${autoAccelPulse ? styles.pulsing : ''}`}>WPM: {wpm}</span>

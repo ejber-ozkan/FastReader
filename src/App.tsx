@@ -11,7 +11,6 @@ import { useSettings } from './hooks/useSettings';
 import { parseFile } from './utils/fileLoader';
 import { saveBook, updateProgress, getRecentBooks, getBook } from './utils/storage';
 import { updateStats, incrementSessions } from './utils/stats';
-import { Upload } from 'lucide-react';
 
 const DEMO_TEXT = "Welcome to FastReader. This is a demo of the Rapid Serial Visual Presentation method. Speed reading allows you to consume content much faster than traditional reading. Try adjusting the WPM slider below to change the speed. Load an EPUB file to start reading your own books.".split(" ");
 
@@ -352,32 +351,15 @@ function App() {
         </div>
       )}
 
-      {/* File Drop / Upload Overlay only visible on main reader view */}
-      {!showHistory && !showSettings && !showStats && !showTheme && (
+      {/* File Drop / Upload Overlay only visible on main reader view - Desktop Only */}
+      {!showHistory && !showSettings && !showStats && !showTheme && !('ontouchstart' in window || navigator.maxTouchPoints > 0) && (
         <div style={{
           position: 'absolute',
           top: '4rem', /* Below header */
           display: 'flex',
-          gap: '1rem'
+          gap: '1rem',
+          pointerEvents: 'none' /* Let clicks pass through if needed, but here we just want the text */
         }}>
-          <label style={{
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            padding: '0.5rem 1rem',
-            backgroundColor: 'var(--color-surface)',
-            borderRadius: '2rem',
-            border: '1px solid var(--color-border)',
-            fontSize: '0.8rem',
-            color: 'var(--color-text-dim)',
-            transition: 'all var(--transition-fast)'
-          }}>
-            <Upload size={14} />
-            <span>Open File</span>
-            <input type="file" accept=".epub,.txt" onChange={handleFileChange} style={{ display: 'none' }} />
-          </label>
-
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -394,6 +376,15 @@ function App() {
         </div>
       )}
 
+      {/* Hidden File Input for Button Trigger */}
+      <input
+        type="file"
+        id="hidden-file-input"
+        accept=".epub,.txt"
+        onChange={handleFileChange}
+        style={{ display: 'none' }}
+      />
+
       <div style={{
         position: 'absolute',
         bottom: '0',
@@ -409,6 +400,7 @@ function App() {
           onWpmChange={setWpm}
           progress={progress}
           onSeek={setProgress}
+          onOpenFileClick={() => document.getElementById('hidden-file-input')?.click()}
           onHistoryClick={toggleHistory}
           onSettingsClick={toggleSettings}
           onStatsClick={toggleStats}
