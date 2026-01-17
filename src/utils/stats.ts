@@ -5,7 +5,7 @@ export interface ReadingStats {
     sessions: number;
 }
 
-const STATS_KEY = 'FastReader_Stats';
+export const STATS_KEY = 'FastReader_Stats';
 
 export const getStats = (): ReadingStats => {
     try {
