@@ -1,0 +1,149 @@
+.container {
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 400px;
+    background: #000;
+    /* As per screenshot */
+    border-radius: 1rem;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    color: #fff;
+    font-family: sans-serif;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.row {
+    display: flex;
+    gap: 1rem;
+}
+
+.toggleBtn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    font-weight: bold;
+    flex: 1;
+    transition: all 0.2s;
+}
+
+.toggleBtn.active {
+    background: #fff;
+    color: #000;
+}
+
+.controlGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.controlGroup label {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.sliderRow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sliderRow input[type="range"] {
+    flex: 1;
+    accent-color: #00e5ff;
+    /* Cyan from screenshot */
+}
+
+.valueDisplay {
+    background: #444;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    min-width: 30px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.select {
+    background: #111;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    text-align: right;
+}
+
+.colorRow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.colorPreview {
+    width: 40px;
+    height: 30px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+}
+
+.colorInput {
+    background: #111;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 1.5rem;
+    width: 100px;
+    text-align: center;
+}
+
+.nativePicker {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.actionBtn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.actionBtn:hover {
+    background: #222;
+}
+
+.actionBtn.primary {
+    background: #fff;
+    color: #000;
+}
