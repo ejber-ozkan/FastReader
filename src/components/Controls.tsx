@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play, Pause, RotateCcw, RotateCw } from 'lucide-react';
+import { Play, Pause, RotateCcw, RotateCw, BookOpen, Settings, BarChart2, Palette } from 'lucide-react';
 import styles from './Controls.module.css';
 
 interface ControlsProps {
@@ -82,11 +82,22 @@ export const Controls: React.FC<ControlsProps> = ({
 
             {/* Function Buttons Row */}
             <div className={styles.functionRow}>
-                <button className={styles.functionBtn} title="History" onClick={onHistoryClick}>History</button>
-                <button className={styles.functionBtn} title="Settings" onClick={onSettingsClick}>Settings</button>
-                <button className={styles.functionBtn} title="Statistics" onClick={onStatsClick}>Stats</button>
-                {/* <button className={styles.functionBtn}>Bkmark</button> REMOVED */}
-                <button className={styles.functionBtn} title="Themes" onClick={onThemeClick}>Theme</button>
+                <button className={styles.functionBtn} title="History" onClick={onHistoryClick}>
+                    <BookOpen size={18} />
+                    <span>History</span>
+                </button>
+                <button className={styles.functionBtn} title="Settings" onClick={onSettingsClick}>
+                    <Settings size={18} />
+                    <span>Settings</span>
+                </button>
+                <button className={styles.functionBtn} title="Statistics" onClick={onStatsClick}>
+                    <BarChart2 size={18} />
+                    <span>Stats</span>
+                </button>
+                <button className={styles.functionBtn} title="Themes" onClick={onThemeClick}>
+                    <Palette size={18} />
+                    <span>Theme</span>
+                </button>
             </div>
 
             {/* WPM Control */}
