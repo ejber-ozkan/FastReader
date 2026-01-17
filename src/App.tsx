@@ -7,6 +7,7 @@ import { StatsMenu } from './components/StatsMenu';
 import { ThemeMenu } from './components/ThemeMenu';
 import { useRSVP } from './hooks/useRSVP';
 import { useTheme } from './hooks/useTheme';
+import { useSettings } from './hooks/useSettings';
 import { parseFile } from './utils/fileLoader';
 import { saveBook, updateProgress, getRecentBooks, getBook } from './utils/storage';
 import { updateStats, incrementSessions } from './utils/stats';
@@ -34,12 +35,16 @@ function App() {
   // Theme Hook
   const { theme, updateTheme } = useTheme();
 
-  // Settings that were local, now pulled up or managed alongside
-  const [pausesOn, setPausesOn] = useState(true);
-  const [loopOn, setLoopOn] = useState(false);
-  const [autoAccelerate, setAutoAccelerate] = useState(false);
+  // Settings Hook (Persistent)
+  const {
+    pausesOn,
+    loopOn,
+    autoAccelerate,
+    wpm: savedWpm,
+    updateSettings
+  } = useSettings();
 
-  // Session Stats
+  const [autoAccelPulse, setAutoAccelPulse] = useState(false); // Visual cue
 
   // Session Stats
   const [sessionWordsRead, setSessionWordsRead] = useState(0);
@@ -55,9 +60,14 @@ function App() {
     setProgress,
     wordsLeft,
     index
-  } = useRSVP({ content, initialWPM: 300 });
+  } = useRSVP({ content, initialWPM: savedWpm });
 
   const [isDragging, setIsDragging] = useState(false);
+
+  // Sync WPM to storage
+  useEffect(() => {
+    updateSettings({ wpm });
+  }, [wpm]);
 
   // Auto-save progress
   useEffect(() => {
@@ -105,6 +115,9 @@ function App() {
           if (accelTimerRef.current >= 60) {
             setWpm((prev: number) => Math.min(prev + 10, 1000));
             accelTimerRef.current = 0;
+            // Trigger pulse
+            setAutoAccelPulse(true);
+            setTimeout(() => setAutoAccelPulse(false), 2000);
           }
         } else {
           accelTimerRef.current = 0;
@@ -115,8 +128,9 @@ function App() {
     } else {
       setSessionStartTime(null);
       setShowPauseSuggestion(false);
+      accelTimerRef.current = 0;
     }
-  }, [isPlaying, sessionStartTime, wpm]);
+  }, [isPlaying, sessionStartTime, wpm, autoAccelerate]);
 
   const toggleHistory = async () => {
     if (!showHistory) {
@@ -302,11 +316,11 @@ function App() {
           currentTheme={theme}
           onUpdateTheme={updateTheme}
           pausesOn={pausesOn}
-          setPausesOn={setPausesOn}
+          setPausesOn={(v) => updateSettings({ pausesOn: v })}
           loopOn={loopOn}
-          setLoopOn={setLoopOn}
+          setLoopOn={(v) => updateSettings({ loopOn: v })}
           autoAccelerate={autoAccelerate}
-          setAutoAccelerate={setAutoAccelerate}
+          setAutoAccelerate={(v) => updateSettings({ autoAccelerate: v })}
         />
       ) : showTheme ? (
         <ThemeMenu onClose={() => setShowTheme(false)} currentTheme={theme} onUpdateTheme={updateTheme} />
@@ -400,6 +414,7 @@ function App() {
           onStatsClick={toggleStats}
           onThemeClick={toggleTheme}
           disabled={showHistory || showSettings || showStats || showTheme}
+          autoAccelPulse={autoAccelPulse}
         />
       </div>
     </main>

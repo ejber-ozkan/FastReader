@@ -25,7 +25,7 @@ export const ThemeMenu: React.FC<ThemeMenuProps> = ({ onClose, currentTheme, onU
                 <h2>Pick a Theme</h2>
             </div>
 
-            <div className={styles.controls} style={{ maxHeight: '60vh', overflowY: 'auto' }}>
+            <div className={`${styles.controls} ${styles.scrollable}`}>
                 {THEME_PRESETS.map(group => (
                     <div key={group.name} className={styles.controlGroup}>
                         <label style={{ color: 'var(--color-primary)', borderBottom: '1px solid var(--color-border)', width: '100%', display: 'block', paddingBottom: '0.25rem', marginBottom: '0.5rem' }}>{group.name}</label>
@@ -71,6 +71,53 @@ export const ThemeMenu: React.FC<ThemeMenuProps> = ({ onClose, currentTheme, onU
                         </div>
                     </div>
                 ))}
+
+                <hr style={{ borderColor: '#333', margin: '1rem 0', opacity: 0.5 }} />
+
+                {/* Custom Colors */}
+                <h3 style={{ fontSize: '1rem', marginBottom: '1rem', color: '#fff' }}>Custom Colors</h3>
+
+                <div className={styles.controlGroup}>
+                    <label>Screen</label>
+                    <div className={styles.colorRow}>
+                        <div className={styles.colorPreview} style={{ background: currentTheme.bgColor }} />
+                        <input
+                            type="text"
+                            value={currentTheme.bgColor}
+                            onChange={(e) => onUpdateTheme({ bgColor: e.target.value })}
+                            className={styles.colorInput}
+                        />
+                        <input type="color" value={currentTheme.bgColor} onChange={(e) => onUpdateTheme({ bgColor: e.target.value })} className={styles.nativePicker} />
+                    </div>
+                </div>
+
+                <div className={styles.controlGroup}>
+                    <label>Text</label>
+                    <div className={styles.colorRow}>
+                        <div className={styles.colorPreview} style={{ background: currentTheme.textColor }} />
+                        <input
+                            type="text"
+                            value={currentTheme.textColor}
+                            onChange={(e) => onUpdateTheme({ textColor: e.target.value })}
+                            className={styles.colorInput}
+                        />
+                        <input type="color" value={currentTheme.textColor} onChange={(e) => onUpdateTheme({ textColor: e.target.value })} className={styles.nativePicker} />
+                    </div>
+                </div>
+
+                <div className={styles.controlGroup}>
+                    <label>Focus</label>
+                    <div className={styles.colorRow}>
+                        <div className={styles.colorPreview} style={{ background: currentTheme.focusColor }} />
+                        <input
+                            type="text"
+                            value={currentTheme.focusColor}
+                            onChange={(e) => onUpdateTheme({ focusColor: e.target.value })}
+                            className={styles.colorInput}
+                        />
+                        <input type="color" value={currentTheme.focusColor} onChange={(e) => onUpdateTheme({ focusColor: e.target.value })} className={styles.nativePicker} />
+                    </div>
+                </div>
             </div>
 
             <div className={styles.actions}>

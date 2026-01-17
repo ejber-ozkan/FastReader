@@ -26,7 +26,7 @@ export const SettingsMenu: React.FC<SettingsMenuProps> = ({
     setAutoAccelerate
 }) => {
     // Destructure for easy access
-    const { bgColor, textColor, focusColor, font, pauseScale, fontScale } = currentTheme;
+    const { pauseScale, fontScale } = currentTheme;
 
     const handleReset = () => {
         onUpdateTheme({
@@ -87,59 +87,7 @@ export const SettingsMenu: React.FC<SettingsMenuProps> = ({
                     </div>
                 </div>
 
-                {/* Font */}
-                <div className={styles.controlGroup}>
-                    <label>Font</label>
-                    <select value={font} onChange={(e) => onUpdateTheme({ font: e.target.value })} className={styles.select}>
-                        <option value="Inter">Inter</option>
-                        <option value="Montserrat">Montserrat</option>
-                        <option value="Serif">Serif</option>
-                    </select>
-                </div>
-
-                {/* Colors */}
-                <div className={styles.controlGroup}>
-                    <label>Screen</label>
-                    <div className={styles.colorRow}>
-                        <div className={styles.colorPreview} style={{ background: bgColor }} />
-                        <input
-                            type="text"
-                            value={bgColor}
-                            onChange={(e) => onUpdateTheme({ bgColor: e.target.value })}
-                            className={styles.colorInput}
-                        />
-                        {/* Hidden native picker for ease */}
-                        <input type="color" value={bgColor} onChange={(e) => onUpdateTheme({ bgColor: e.target.value })} className={styles.nativePicker} />
-                    </div>
-                </div>
-
-                <div className={styles.controlGroup}>
-                    <label>Text</label>
-                    <div className={styles.colorRow}>
-                        <div className={styles.colorPreview} style={{ background: textColor }} />
-                        <input
-                            type="text"
-                            value={textColor}
-                            onChange={(e) => onUpdateTheme({ textColor: e.target.value })}
-                            className={styles.colorInput}
-                        />
-                        <input type="color" value={textColor} onChange={(e) => onUpdateTheme({ textColor: e.target.value })} className={styles.nativePicker} />
-                    </div>
-                </div>
-
-                <div className={styles.controlGroup}>
-                    <label>Focus</label>
-                    <div className={styles.colorRow}>
-                        <div className={styles.colorPreview} style={{ background: focusColor }} />
-                        <input
-                            type="text"
-                            value={focusColor}
-                            onChange={(e) => onUpdateTheme({ focusColor: e.target.value })}
-                            className={styles.colorInput}
-                        />
-                        <input type="color" value={focusColor} onChange={(e) => onUpdateTheme({ focusColor: e.target.value })} className={styles.nativePicker} />
-                    </div>
-                </div>
+                {/* Font and Colors moved to ThemeMenu, Font option removed completely as per request */}
 
                 {/* Font Scale */}
                 <div className={styles.controlGroup}>

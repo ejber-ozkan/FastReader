@@ -14,6 +14,7 @@ interface ControlsProps {
     onStatsClick?: () => void;
     onThemeClick?: () => void;
     disabled?: boolean;
+    autoAccelPulse?: boolean;
 }
 
 export const Controls: React.FC<ControlsProps> = ({
@@ -27,7 +28,8 @@ export const Controls: React.FC<ControlsProps> = ({
     onSettingsClick,
     onStatsClick,
     onThemeClick,
-    disabled = false
+    disabled = false,
+    autoAccelPulse = false
 }) => {
     return (
         <div className={styles.controlsContainer}>
@@ -65,12 +67,11 @@ export const Controls: React.FC<ControlsProps> = ({
                 </button>
 
                 <button
-                    className={styles.speedBtn}
                     onClick={() => onWpmChange(Math.min(1000, wpm + 25))}
                     disabled={disabled}
                     title="Faster (+25)"
                 >
-                    <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>+</span>
+                    <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }} className={autoAccelPulse ? styles.pulsing : ''}>+</span>
                 </button>
 
                 <button className={styles.iconBtn} onClick={() => { }} title="Forward 30s" disabled={disabled}>
@@ -90,7 +91,7 @@ export const Controls: React.FC<ControlsProps> = ({
 
             {/* WPM Control */}
             <div className={styles.wpmControl}>
-                <span className={styles.label}>WPM: {wpm}</span>
+                <span className={`${styles.label} ${autoAccelPulse ? styles.pulsing : ''}`}>WPM: {wpm}</span>
                 <input
                     type="range"
                     min="100"
