@@ -44,5 +44,6 @@ export default defineConfig({
   },
   server: {
     host: true // Expose to local network
-  }
+  },
+  base: '/FastReader/'
 })

@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { Controls } from '../../components/Controls';
-import React from 'react';
+
 
 describe('Controls Component', () => {
     const mockTogglePlay = vi.fn();

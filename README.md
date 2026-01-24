@@ -1,6 +1,12 @@
 # FastReader ⚡📖
 
 **FastReader** is a modern, privacy-focused speed reading application that leverages the **Rapid Serial Visual Presentation (RSVP)** method. By displaying words one by one at a fixed focal point, it eliminates the need for eye movement (saccades), allowing you to read faster and with less fatigue.
+<br/>
+<div align="center">
+  <a href="https://ejber-ozkan.github.io/FastReader/">
+    <img src="https://img.shields.io/badge/Live_Demo-Click_Here-brightgreen?style=for-the-badge&logo=github" alt="Live Demo" />
+  </a>
+</div>
 
 <div align="center">
   <img src="reader_view.png" alt="Reader View" width="800"/>

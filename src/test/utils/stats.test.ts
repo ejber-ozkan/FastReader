@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { updateStats, getStats, incrementSessions, STATS_KEY } from '../../utils/stats';
+import { updateStats, getStats, incrementSessions } from '../../utils/stats';
 
 describe('stats.ts', () => {
     beforeEach(() => {

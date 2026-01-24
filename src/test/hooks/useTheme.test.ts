@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { useTheme } from '../../hooks/useTheme';
 
 const THEME_KEY = 'FastReader_Theme';
