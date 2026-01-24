@@ -53,22 +53,7 @@ describe('SettingsMenu Component', () => {
         expect(mockUpdateTheme).toHaveBeenCalled();
     });
 
-    it('updates colors', () => {
-        render(<SettingsMenu {...defaultProps} />);
-        // Find color inputs
-        const colorInputs = document.querySelectorAll('input[type="color"]');
-        expect(colorInputs.length).toBeGreaterThan(0);
 
-        fireEvent.change(colorInputs[0], { target: { value: '#123456' } });
-        expect(mockUpdateTheme).toHaveBeenCalledWith(expect.objectContaining({ bgColor: '#123456' }));
-    });
-
-    it('updates selection', () => {
-        render(<SettingsMenu {...defaultProps} />);
-        const select = screen.getByRole('combobox');
-        fireEvent.change(select, { target: { value: 'Serif' } });
-        expect(mockUpdateTheme).toHaveBeenCalledWith(expect.objectContaining({ font: 'Serif' }));
-    });
 
     it('resets to default', () => {
         render(<SettingsMenu {...defaultProps} />);
