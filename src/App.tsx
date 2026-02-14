@@ -16,6 +16,7 @@ const DEMO_TEXT = "Welcome to FastReader. This is a demo of the Rapid Serial Vis
 
 function App() {
   const [content, setContent] = useState<string[]>(DEMO_TEXT);
+  const [chapters, setChapters] = useState<{ title: string; index: number }[]>([]);
   const [fileName, setFileName] = useState<string>("Demo");
   const [currentBookId, setCurrentBookId] = useState<string | null>(null);
 
@@ -198,11 +199,12 @@ function App() {
     setShowSettings(false);
     setShowStats(false);
     try {
-      const { title, words } = await parseFile(file);
+      const { title, words, chapters } = await parseFile(file);
 
       const { id, progress: savedProgress } = await saveBook(file, title, words.length);
 
       setContent(words);
+      setChapters(chapters);
       setFileName(title);
       setCurrentBookId(id);
 
@@ -409,8 +411,10 @@ function App() {
           onSettingsClick={toggleSettings}
           onStatsClick={toggleStats}
           onThemeClick={toggleTheme}
-          disabled={showHistory || showSettings || showStats || showTheme}
+          disabled={content.length === 0}
           autoAccelPulse={autoAccelPulse}
+          chapters={chapters}
+          totalWords={content.length}
         />
       </div>
     </main>

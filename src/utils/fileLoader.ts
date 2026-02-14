@@ -1,6 +1,6 @@
 import ePub from 'epubjs';
 
-export async function parseFile(file: File): Promise<{ title: string; words: string[] }> {
+export async function parseFile(file: File): Promise<{ title: string; words: string[]; chapters: { title: string; index: number }[] }> {
     if (file.type === "text/plain" || file.name.endsWith(".txt")) {
         return parseTxt(file);
     } else {
@@ -8,14 +8,15 @@ export async function parseFile(file: File): Promise<{ title: string; words: str
     }
 }
 
-async function parseTxt(file: File): Promise<{ title: string; words: string[] }> {
+async function parseTxt(file: File): Promise<{ title: string; words: string[]; chapters: { title: string; index: number }[] }> {
     const text = await file.text();
     const title = file.name.replace(".txt", "");
     const cleanText = text.replace(/\s+/g, ' ').trim();
-    return { title, words: cleanText.split(' ') };
+    const words = cleanText.split(' ');
+    return { title, words, chapters: [{ title: "Start", index: 0 }] };
 }
 
-async function parseEpub(file: File): Promise<{ title: string; words: string[] }> {
+async function parseEpub(file: File): Promise<{ title: string; words: string[]; chapters: { title: string; index: number }[] }> {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = async (e) => {
@@ -122,16 +123,32 @@ async function parseEpub(file: File): Promise<{ title: string; words: string[] }
                 });
 
                 const chapterTexts = await Promise.all(chapterPromises);
-                const fullText = chapterTexts.filter((text: string) => text.length > 0).join(" ");
 
-                const cleanText = fullText.replace(/\s+/g, ' ').trim();
+                // Process chapters to get indices
+                const chapters: { title: string; index: number }[] = [];
+                const allWords: string[] = [];
+                let runningWordCount = 0;
 
-                if (cleanText.length === 0) {
+                for (let i = 0; i < chapterTexts.length; i++) {
+                    const raw = chapterTexts[i];
+                    if (!raw || raw.trim().length === 0) continue;
+
+                    const cleanWords = raw.trim().split(/\s+/);
+                    if (cleanWords.length === 0 || (cleanWords.length === 1 && cleanWords[0] === '')) continue;
+
+                    // Try to get title from TOC/Spine if possible, or just default
+                    const chapterTitle = `Chapter ${chapters.length + 1}`;
+
+                    chapters.push({ title: chapterTitle, index: runningWordCount });
+                    allWords.push(...cleanWords);
+                    runningWordCount += cleanWords.length;
+                }
+
+                if (allWords.length === 0) {
                     throw new Error("No text content found in EPUB.");
                 }
 
-                const words = cleanText.split(' ');
-                resolve({ title, words });
+                resolve({ title, words: allWords, chapters });
 
             } catch (err) {
                 reject(err);

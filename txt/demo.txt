@@ -1,0 +1,1 @@
+Welcome to FastReader. This is a demo of the Rapid Serial Visual Presentation method. Speed reading allows you to consume content much faster than traditional reading. Try adjusting the WPM slider below to change the speed. Load an EPUB file to start reading your own books.

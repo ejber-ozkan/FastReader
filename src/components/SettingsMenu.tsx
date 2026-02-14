@@ -113,7 +113,7 @@ export const SettingsMenu: React.FC<SettingsMenuProps> = ({
             </div>
 
             <div className={styles.footer}>
-                <small>Version 1.1.1 - Ejber Ozkan</small>
+                <small>Version 1.2.0 - Ejber Ozkan</small>
             </div>
         </div>
     );

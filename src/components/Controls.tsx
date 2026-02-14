@@ -16,6 +16,8 @@ interface ControlsProps {
     onThemeClick?: () => void;
     disabled?: boolean;
     autoAccelPulse?: boolean;
+    chapters?: { title: string; index: number }[];
+    totalWords?: number;
 }
 
 export const Controls = memo<ControlsProps>(({
@@ -31,12 +33,30 @@ export const Controls = memo<ControlsProps>(({
     onStatsClick,
     onThemeClick,
     disabled = false,
-    autoAccelPulse = false
+    autoAccelPulse = false,
+    chapters = [],
+    totalWords = 0
 }) => {
     return (
         <div className={styles.controlsContainer}>
             {/* Progress Bar */}
             <div className={styles.progressContainer}>
+                {chapters && totalWords > 0 && (
+                    <div className={styles.markersContainer}>
+                        {chapters.map((chapter, i) => (
+                            <div
+                                key={i}
+                                className={styles.chapterMarker}
+                                style={{ left: `${(chapter.index / totalWords) * 100}%` }}
+                                title={chapter.title}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onSeek((chapter.index / totalWords) * 100);
+                                }}
+                            />
+                        ))}
+                    </div>
+                )}
                 <input
                     type="range"
                     min="0"
