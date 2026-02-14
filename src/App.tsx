@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type ChangeEvent, type DragEvent } from 'react';
+import { useState, useEffect, useRef, useCallback, type ChangeEvent, type DragEvent } from 'react';
 import { ReaderDisplay } from './components/ReaderDisplay';
 import { Controls } from './components/Controls';
 import { HistoryList } from './components/HistoryList';
@@ -131,7 +131,11 @@ function App() {
     }
   }, [isPlaying, sessionStartTime, wpm, autoAccelerate]);
 
-  const toggleHistory = async () => {
+  const handleOpenFileClick = useCallback(() => {
+    document.getElementById('hidden-file-input')?.click();
+  }, []);
+
+  const toggleHistory = useCallback(async () => {
     if (!showHistory) {
       const books = await getRecentBooks();
       setHistoryItems(books);
@@ -140,29 +144,29 @@ function App() {
     setShowHistory(!showHistory);
     if (showSettings) setShowSettings(false);
     if (showStats) setShowStats(false);
-  };
+  }, [showHistory, isPlaying, togglePlay, showSettings, showStats]);
 
-  const toggleSettings = () => {
+  const toggleSettings = useCallback(() => {
     if (!showSettings && isPlaying) togglePlay();
     setShowSettings(!showSettings);
     if (showHistory) setShowHistory(false);
     if (showStats) setShowStats(false);
-  };
+  }, [showSettings, isPlaying, togglePlay, showHistory, showStats]);
 
-  const toggleStats = () => {
+  const toggleStats = useCallback(() => {
     if (!showStats && isPlaying) togglePlay();
     setShowStats(!showStats);
     if (showHistory) setShowHistory(false);
     if (showSettings) setShowSettings(false);
-  };
+  }, [showStats, isPlaying, togglePlay, showHistory, showSettings]);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     if (!showTheme && isPlaying) togglePlay();
     setShowTheme(!showTheme);
     setShowSettings(false);
     setShowStats(false);
     setShowHistory(false);
-  };
+  }, [showTheme, isPlaying, togglePlay]);
 
   const loadFromHistory = async (id: string) => {
     setIsLoading(true);
@@ -400,7 +404,7 @@ function App() {
           onWpmChange={setWpm}
           progress={progress}
           onSeek={setProgress}
-          onOpenFileClick={() => document.getElementById('hidden-file-input')?.click()}
+          onOpenFileClick={handleOpenFileClick}
           onHistoryClick={toggleHistory}
           onSettingsClick={toggleSettings}
           onStatsClick={toggleStats}

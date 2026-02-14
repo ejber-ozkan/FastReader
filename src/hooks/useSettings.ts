@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const SETTINGS_KEY = 'FastReader_Settings';
 
@@ -27,10 +27,18 @@ export const useSettings = () => {
         }
     });
 
+    const timerRef = useRef<number>(0);
+
     const updateSettings = (updates: Partial<AppSettings>) => {
         setSettings(prev => {
             const newSettings = { ...prev, ...updates };
-            localStorage.setItem(SETTINGS_KEY, JSON.stringify(newSettings));
+
+            clearTimeout(timerRef.current);
+            // @ts-ignore
+            timerRef.current = setTimeout(() => {
+                localStorage.setItem(SETTINGS_KEY, JSON.stringify(newSettings));
+            }, 500);
+
             return newSettings;
         });
     };

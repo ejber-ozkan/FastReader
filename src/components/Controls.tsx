@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { Play, Pause, RotateCcw, RotateCw, BookOpen, Settings, BarChart2, Palette, Upload } from 'lucide-react';
 import styles from './Controls.module.css';
 
@@ -18,7 +18,7 @@ interface ControlsProps {
     autoAccelPulse?: boolean;
 }
 
-export const Controls: React.FC<ControlsProps> = ({
+export const Controls = memo<ControlsProps>(({
     isPlaying,
     onTogglePlay,
     wpm,
@@ -121,4 +121,4 @@ export const Controls: React.FC<ControlsProps> = ({
 
         </div>
     );
-};
+});

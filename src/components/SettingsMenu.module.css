@@ -187,3 +187,11 @@
     background: #fff;
     color: #000;
 }
+
+.footer {
+    border-top: 1px solid #333;
+    padding-top: 1rem;
+    text-align: center;
+    color: #888;
+    font-size: 0.8rem;
+}

@@ -57,15 +57,15 @@ export function useRSVP({ content, initialWPM = 300 }: UseRSVPProps) {
         };
     }, [isPlaying, wpm, content.length, stop]);
 
-    const seek = (newIndex: number) => {
+    const seek = useCallback((newIndex: number) => {
         const clamped = Math.max(0, Math.min(newIndex, content.length - 1));
         setIndex(clamped);
-    };
+    }, [content.length]);
 
-    const setProgress = (percent: number) => {
+    const setProgress = useCallback((percent: number) => {
         const newIndex = Math.floor((percent / 100) * content.length);
         seek(newIndex);
-    };
+    }, [content.length, seek]);
 
     return {
         index,

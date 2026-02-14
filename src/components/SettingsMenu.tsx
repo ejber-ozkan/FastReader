@@ -111,6 +111,10 @@ export const SettingsMenu: React.FC<SettingsMenuProps> = ({
                 <button className={styles.actionBtn} onClick={onClose}>Close</button>
                 <button className={`${styles.actionBtn} ${styles.primary}`} onClick={onClose}>Apply</button>
             </div>
+
+            <div className={styles.footer}>
+                <small>Version 1.1.0 - Ejber Ozkan</small>
+            </div>
         </div>
     );
 };
